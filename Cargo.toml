@@ -16,6 +16,3 @@ homepage = "https://github.com/PistonDevelopers/viewport"
 name = "viewport"
 path = "src/lib.rs"
 
-[dependencies.vecmath]
-git = "https://github.com/pistondevelopers/vecmath"
-#version = "0.0.0"
