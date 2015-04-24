@@ -2,6 +2,10 @@
 
 //! A library for storing viewport information
 
+extern crate float;
+
+use float::*;
+
 /// Stores viewport information.
 #[derive(Copy, Clone)]
 pub struct Viewport {
@@ -26,14 +30,15 @@ impl Viewport {
     /// with the origin in the center, such that ```(-1.0, 1.0)``` in the
     /// underlying coordinate system corresponds to the
     /// upper left corner of the viewport.
-    pub fn abs_transform(&self) -> [[f64; 3]; 2] {
+    pub fn abs_transform<T: Float>(&self) -> [[T; 3]; 2] {
         let (dw, dh) = (self.draw_size[0] as f64, self.draw_size[1] as f64);
         let (ww, wh) = (self.window_size[0] as f64, self.window_size[1] as f64);
         let sx = 2.0 * (dw / ww) / self.rect[2] as f64;
         let sy = -2.0 * (dh / wh) / self.rect[3] as f64;
+        let f = |x| FromPrimitive::from_f64(x);
         [
-            [sx, 0.0, -1.0],
-            [0.0, sy, 1.0]
+            [f(sx), f(0.0), f(-1.0)],
+            [f(0.0), f(sy), f(1.0)]
         ]
     }
 }

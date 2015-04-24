@@ -1,7 +1,7 @@
 [package]
 
 name = "piston-viewport"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
     "bvssvni <bvssvni@gmail.com>"
 ]
@@ -15,4 +15,8 @@ homepage = "https://github.com/PistonDevelopers/viewport"
 [lib]
 name = "viewport"
 path = "src/lib.rs"
+
+[dependencies.piston-float]
+git = "https://github.com/pistondevelopers/float"
+#version = "0.0.0"
 
