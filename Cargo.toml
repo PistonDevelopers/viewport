@@ -1,7 +1,7 @@
 [package]
 
 name = "piston-viewport"
-version = "0.2.0"
+version = "0.3.0"
 authors = [
     "bvssvni <bvssvni@gmail.com>"
 ]
@@ -17,5 +17,5 @@ name = "viewport"
 path = "src/lib.rs"
 
 [dependencies]
-piston-float = "0.2.0"
+piston-float = "0.3.0"
 
