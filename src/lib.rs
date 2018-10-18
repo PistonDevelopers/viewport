@@ -7,7 +7,7 @@ extern crate float;
 use float::*;
 
 /// Stores viewport information.
-#[derive(Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct Viewport {
     /// Viewport in pixels.
     /// ```[x, y, width height]``` where ```(x, y)``` is lower left corner.
