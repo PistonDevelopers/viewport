@@ -7,7 +7,7 @@ extern crate float;
 use float::*;
 
 /// Stores viewport information.
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Viewport {
     /// Viewport in pixels.
     /// ```[x, y, width height]``` where ```(x, y)``` is lower left corner.
@@ -15,7 +15,7 @@ pub struct Viewport {
     /// The size of frame buffer in pixels.
     pub draw_size: [u32; 2],
     /// The size of window in points.
-    pub window_size: [u32; 2],
+    pub window_size: [f64; 2],
 }
 
 impl Viewport {
@@ -32,9 +32,8 @@ impl Viewport {
     /// upper left corner of the viewport.
     pub fn abs_transform<T: Float>(&self) -> [[T; 3]; 2] {
         let (dw, dh) = (self.draw_size[0] as f64, self.draw_size[1] as f64);
-        let (ww, wh) = (self.window_size[0] as f64, self.window_size[1] as f64);
-        let sx = 2.0 * (dw / ww) / self.rect[2] as f64;
-        let sy = -2.0 * (dh / wh) / self.rect[3] as f64;
+        let sx = 2.0 * (dw / self.window_size[0]) / self.rect[2] as f64;
+        let sy = -2.0 * (dh / self.window_size[1]) / self.rect[3] as f64;
         let f = |x| FromPrimitive::from_f64(x);
         [
             [f(sx), f(0.0), f(-1.0)],
@@ -57,7 +56,7 @@ mod tests {
         let viewport = Viewport {
             rect: [0, 0, 100, 200],
             draw_size: [100, 200],
-            window_size: [100, 200],
+            window_size: [100.0, 200.0],
         };
         let abs = viewport.abs_transform();
         assert_eq!(abs, [
@@ -71,7 +70,7 @@ mod tests {
         let viewport = Viewport {
             rect: [10, 10, 80, 80],
             draw_size: [100, 100],
-            window_size: [50, 50],
+            window_size: [50.0, 50.0],
         };
         let abs = viewport.abs_transform();
         assert_eq!(abs, [
