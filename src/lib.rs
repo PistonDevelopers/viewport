@@ -4,7 +4,7 @@
 
 extern crate float;
 
-use float::*;
+use float::{Float, FromPrimitive};
 
 /// Stores viewport information.
 #[derive(Debug, Copy, Clone, PartialEq)]
@@ -23,17 +23,18 @@ impl Viewport {
     /// which uses a row major 2x3 matrix.
     ////
     /// The origin is in the upper left corner of the viewport rectangle.
-    /// The x axis points to the right, and the y axis points down.
+    /// The x-axis points to the right, and the y-axis points down.
     /// The units are in points (window coordinates).
     ///
     /// It is assumed that the underlying coordinate system is normalized
     /// with the origin in the center, such that ```(-1.0, 1.0)``` in the
     /// underlying coordinate system corresponds to the
     /// upper left corner of the viewport.
+    #[must_use]
     pub fn abs_transform<T: Float>(&self) -> [[T; 3]; 2] {
-        let (dw, dh) = (self.draw_size[0] as f64, self.draw_size[1] as f64);
-        let sx = 2.0 * (dw / self.window_size[0]) / self.rect[2] as f64;
-        let sy = -2.0 * (dh / self.window_size[1]) / self.rect[3] as f64;
+        let (dw, dh) = (f64::from(self.draw_size[0]), f64::from(self.draw_size[1]));
+        let sx = 2.0 * (dw / self.window_size[0]) / f64::from(self.rect[2]);
+        let sy = -2.0 * (dh / self.window_size[1]) / f64::from(self.rect[3]);
         let f = |x| FromPrimitive::from_f64(x);
         [
             [f(sx), f(0.0), f(-1.0)],
