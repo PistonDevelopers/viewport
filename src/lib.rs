@@ -10,7 +10,7 @@ use float::{Float, FromPrimitive};
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Viewport {
     /// Viewport in pixels.
-    /// ```[x, y, width height]``` where ```(x, y)``` is lower left corner.
+    /// ```[x, y, width, height]``` where ```(x, y)``` is lower left corner.
     pub rect: [i32; 4],
     /// The size of frame buffer in pixels.
     pub draw_size: [u32; 2],
